@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { MoonLoader } from "react-spinners";
 import { fetchArticles } from "../api";
 
 import Article from "../article/components/Article";
@@ -13,7 +13,13 @@ const Homepage = () => {
     });
   }, []);
 
-  console.log(articles);
+  if (articles.length === 0) {
+    return (
+      <div className="loader">
+        <MoonLoader />
+      </div>
+    );
+  }
 
   return (
     <section>
