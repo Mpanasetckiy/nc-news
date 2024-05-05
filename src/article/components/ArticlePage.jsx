@@ -7,9 +7,12 @@ import IconLike from "../../assets/icon-like.png";
 import IconDislike from "../../assets/icon-dislike.png";
 
 import { useHttpClient } from "../../hooks/http-hook";
+import { formatDateAndTime } from "../../util/convertDate";
+import Comment from "./Comment";
 
 const ArticlePage = () => {
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
   const { isLoading, sendRequest } = useHttpClient();
   const { article_id } = useParams();
 
@@ -26,24 +29,36 @@ const ArticlePage = () => {
     }
   };
 
+  const fetchCommentsByArticleId = async () => {
+    try {
+      const { comments } = await sendRequest(
+        `https://be-nc-news-0820.onrender.com/api/articles/${article_id}/comments`
+      );
+
+      if (!isLoading) {
+        setComments(comments);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchArticleById();
+    fetchCommentsByArticleId();
   }, [article_id]);
 
   if (isLoading) {
     return (
-      <div className="loader">
-        <MoonLoader />
-      </div>
+      <section>
+        <div className="loader">
+          <MoonLoader />
+        </div>
+      </section>
     );
   }
 
-  const date = new Date(article.created_at);
-  const formattedDate = `${
-    ("0" + date.getHours()).slice(-2) +
-    ":" +
-    ("0" + date.getMinutes()).slice(-2)
-  } · ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  const formattedDate = formatDateAndTime(article.created_at);
 
   return (
     <section>
@@ -80,6 +95,13 @@ const ArticlePage = () => {
             </div>
           </div>
         </li>
+        {comments.length > 0 ? (
+          comments.map((comment) => {
+            return <Comment key={comment.comment_id} comment={comment} />;
+          })
+        ) : (
+          <p>No comments...</p>
+        )}
       </ul>
     </section>
   );
