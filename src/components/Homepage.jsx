@@ -27,9 +27,11 @@ const Homepage = () => {
 
   if (isLoading) {
     return (
-      <div className="loader">
-        <MoonLoader />
-      </div>
+      <section>
+        <div className="loader">
+          <MoonLoader />
+        </div>
+      </section>
     );
   }
 

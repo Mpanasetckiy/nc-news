@@ -9,7 +9,7 @@ const Article = ({ article }) => {
     article_id,
     article_img_url,
     author,
-    avatar_url,
+    author_avatar_url,
     comment_count,
     created_at,
     title,
@@ -25,7 +25,7 @@ const Article = ({ article }) => {
   return (
     <li key={article_id}>
       <div className="article__avatar">
-        <img src={avatar_url} alt="avatar url" />
+        <img src={author_avatar_url} alt="avatar url" />
       </div>
       <div className="article__container">
         <div className="article__header">

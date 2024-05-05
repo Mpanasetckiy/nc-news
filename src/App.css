@@ -71,8 +71,9 @@ nav img {
   align-items: center;
 }
 
-.article__container {
-  padding-right: 0.5rem;
+.article__container,
+.comment__container {
+  padding-right: 1rem;
 }
 
 .article__avatar img {
@@ -129,4 +130,12 @@ nav img {
 .article-page .article__stats {
   justify-content: space-between;
   gap: 0;
+}
+
+.comment__container {
+  text-align: left;
+}
+
+.comment__container h4 {
+  padding-left: 0.5rem;
 }
