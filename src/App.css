@@ -98,3 +98,9 @@ nav img {
   align-items: center;
   gap: 1rem;
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
