@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import Home from "../assets/icon-home.png";
 import HomeActive from "../assets/icon-home-active.png";
 import Search from "../assets/icon-search.png";
@@ -6,11 +8,16 @@ import MessageActive from "../assets/icon-message-active.png";
 import Profile from "../assets/icon-user.png";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/");
+  };
   return (
     <nav>
       <ul>
         <li>
-          <img src={Home} alt="icon home active" />
+          <img src={Home} alt="icon home active" onClick={handleHomeClick} />
         </li>
         <li>
           <img src={Search} alt="icon search" />
