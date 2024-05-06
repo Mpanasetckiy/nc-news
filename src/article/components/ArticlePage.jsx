@@ -50,8 +50,8 @@ const ArticlePage = () => {
 
   if (isLoading) {
     return (
-      <section>
-        <div className="loader">
+      <section className="loader">
+        <div>
           <MoonLoader />
         </div>
       </section>
@@ -63,38 +63,35 @@ const ArticlePage = () => {
   return (
     <section>
       <ul className="article-page">
-        <li key={article.article_id}>
-          <div className="article__avatar">
+        <div className="article-page__container">
+          <div className="article-page__header">
             <img src={article.avatar_url} alt="avatar url" />
-          </div>
-          <div className="article__container">
-            <div className="article-page__header">
+            <div>
               <h3>{article.name}</h3>
-
               <p>@{article.author}</p>
             </div>
-            <h2>{article.title}</h2>
-            <p>{article.body}</p>
-            <img
-              src={article.article_img_url}
-              alt="image url"
-              className="article__img"
-            />
+          </div>
+          <h2>{article.title}</h2>
+          <p className="body">{article.body}</p>
+          <img
+            src={article.article_img_url}
+            alt="image url"
+            className="article__img"
+          />
 
-            <div className="article__stats">
-              <p>{formattedDate}</p>
-              <div>
-                <img src={IconComment} alt="icon comments" />
-                <p>{article.comment_count}</p>
-              </div>
-              <div>
-                <img src={IconLike} alt="icon like" />
-                <p>{article.votes}</p>
-                <img src={IconDislike} alt="icon dislike" />
-              </div>
+          <div className="article__stats">
+            <p>{formattedDate}</p>
+            <div>
+              <img src={IconComment} alt="icon comments" />
+              <p>{article.comment_count}</p>
+            </div>
+            <div>
+              <img src={IconLike} alt="icon like" />
+              <p>{article.votes}</p>
+              <img src={IconDislike} alt="icon dislike" />
             </div>
           </div>
-        </li>
+        </div>
         {comments.length > 0 ? (
           comments.map((comment) => {
             return <Comment key={comment.comment_id} comment={comment} />;
