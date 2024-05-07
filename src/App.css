@@ -169,6 +169,12 @@ nav img {
   padding-left: 0.5rem;
 }
 
+.comment__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .user-card {
   display: flex;
   flex-direction: column;

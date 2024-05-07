@@ -1,11 +1,42 @@
+import { useContext, useState, useEffect } from "react";
+
+import { AuthContext } from "../../context/auth-context";
+import { useHttpClient } from "../../hooks/http-hook";
 import IconLike from "../../assets/icon-like.png";
 import IconDislike from "../../assets/icon-dislike.png";
 
 import { formatDateAndTime } from "../../util/convertDate";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, setComments }) => {
+  const { isLoading, sendRequest, error } = useHttpClient();
+  const { user } = useContext(AuthContext);
   const { author, author_avatar_url, body, comment_id, created_at, votes } =
     comment;
+
+  const deleteComment = async () => {
+    try {
+      await sendRequest(
+        `https://be-nc-news-0820.onrender.com/api/comments/${comment_id}`,
+        "DELETE"
+      );
+
+      if (!isLoading) {
+        setComments((prev) => {
+          const filteredComments = prev.filter((comment) => {
+            return comment.comment_id !== comment_id;
+          });
+          return filteredComments;
+        });
+        alert("Successfully deleted");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick = () => {
+    deleteComment();
+  };
 
   const formattedDate = formatDateAndTime(created_at);
 
@@ -15,7 +46,12 @@ const Comment = ({ comment }) => {
         <img src={author_avatar_url} alt="avatar url" />
       </div>
       <div className="comment__container">
-        <h4>@{author}</h4>
+        <div className="comment__header">
+          <h4>@{author}</h4>
+          {user.username === author ? (
+            <button onClick={handleClick}>X</button>
+          ) : null}
+        </div>
         <p>{body}</p>
         <div className="article__stats">
           <p>{formattedDate}</p>
