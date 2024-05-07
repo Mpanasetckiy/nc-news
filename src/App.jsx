@@ -14,7 +14,7 @@ import "./App.css";
 
 function App() {
   const { isLoggedIn, user, login, logout } = useAuth();
-  console.log(localStorage);
+
   return (
     <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
       <Header />

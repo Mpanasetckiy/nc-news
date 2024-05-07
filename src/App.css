@@ -151,7 +151,7 @@ nav img {
 
 .article-page__container {
   max-width: 95vw;
-  border-bottom: 1px solid;
+
   padding-bottom: 1rem;
 }
 
@@ -162,6 +162,7 @@ nav img {
 
 .comment__container {
   text-align: left;
+  min-width: 83vw;
 }
 
 .comment__container h4 {
@@ -207,5 +208,20 @@ nav img {
 
 .login-form select {
   padding: 1rem;
+  font-size: medium;
+}
+
+.post-comment {
+  display: flex;
+  width: 100vw;
+  padding: 1rem;
+  gap: 1rem;
+  justify-content: center;
+  border-top: 1px solid;
+}
+
+.post-comment input {
+  width: 70vw;
+  border-radius: 15px;
   font-size: medium;
 }

@@ -9,6 +9,7 @@ import IconDislike from "../../assets/icon-dislike.png";
 import { useHttpClient } from "../../hooks/http-hook";
 import { formatDateAndTime } from "../../util/convertDate";
 import Comment from "./Comment";
+import PostComment from "./PostComment";
 
 const ArticlePage = () => {
   const [article, setArticle] = useState({});
@@ -92,6 +93,7 @@ const ArticlePage = () => {
             </div>
           </div>
         </div>
+        <PostComment article_id={article_id} setComments={setComments} />
         {comments.length > 0 ? (
           comments.map((comment) => {
             return <Comment key={comment.comment_id} comment={comment} />;
