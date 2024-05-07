@@ -231,3 +231,7 @@ nav img {
   border-radius: 15px;
   font-size: medium;
 }
+
+.voted {
+  opacity: 0.3;
+}

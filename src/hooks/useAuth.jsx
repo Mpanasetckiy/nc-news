@@ -17,13 +17,24 @@ export const useAuth = () => {
     setUser({});
   }, []);
 
+  const addVotedArticles = useCallback((article_id, vote) => {
+    const userLocal = JSON.parse(localStorage.getItem("user"));
+    if (userLocal) {
+      userLocal.voted = { ...userLocal.voted, [article_id]: vote };
+      setUser(userLocal);
+
+      const userJSON = JSON.stringify(userLocal);
+      localStorage.setItem("user", userJSON);
+    }
+  }, []);
+
   useEffect(() => {
-    const userJSON = JSON.parse(localStorage.getItem("user"));
-    if (userJSON) {
-      setUser(userJSON);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUser(user);
       setIsLoggedIn(true);
     }
   }, []);
 
-  return { isLoggedIn, login, logout, user };
+  return { isLoggedIn, login, logout, user, addVotedArticles };
 };
