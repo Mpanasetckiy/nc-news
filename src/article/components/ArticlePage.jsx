@@ -96,7 +96,13 @@ const ArticlePage = () => {
         <PostComment article_id={article_id} setComments={setComments} />
         {comments.length > 0 ? (
           comments.map((comment) => {
-            return <Comment key={comment.comment_id} comment={comment} />;
+            return (
+              <Comment
+                key={comment.comment_id}
+                comment={comment}
+                setComments={setComments}
+              />
+            );
           })
         ) : (
           <p>No comments...</p>
