@@ -1,27 +1,55 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { MoonLoader } from "react-spinners";
 
 import { useHttpClient } from "../hooks/http-hook";
 import Article from "../article/components/Article";
 
+import IconArrowDown from "../assets/icon-arrow-down.png";
+import IconArrowDownActive from "../assets/icon-arrow-down-active.png";
+import IconArrowUp from "../assets/icon-arrow-up.png";
+import IconArrowUpActive from "../assets/icon-arrow-up-active.png";
+
 const Homepage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { isLoading, sendRequest, error } = useHttpClient();
   const [articles, setArticles] = useState([]);
+  const [sortingOptions, setSortingOptions] = useState({
+    sort_by: "created_at",
+    order: "desc",
+  });
 
   useEffect(() => {
+    setSearchParams(sortingOptions);
     fetchArticles();
-  }, []);
+  }, [sortingOptions]);
 
   const fetchArticles = async () => {
     try {
       const { articles } = await sendRequest(
-        "https://be-nc-news-0820.onrender.com/api/articles"
+        `https://be-nc-news-0820.onrender.com/api/articles?sort_by=${sortingOptions.sort_by}&order=${sortingOptions.order}`
       );
       if (!isLoading) {
         setArticles(articles);
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const selectVal = e.target.value;
+    setSortingOptions((prev) => {
+      return { ...prev, sort_by: selectVal };
+    });
+  };
+
+  const handleClick = (e) => {
+    const order = e.target.id;
+    if (order !== sortingOptions.order) {
+      setSortingOptions((prev) => {
+        return { ...prev, order: order };
+      });
     }
   };
 
@@ -37,6 +65,33 @@ const Homepage = () => {
 
   return (
     <section>
+      <div className="sorting">
+        <select value={sortingOptions.sort_by} onChange={handleChange}>
+          <option value="created_at"> Sort by: Date</option>
+          <option value="comment_count"> Sort by: Comment Count</option>
+          <option value="votes"> Sort by: Votes</option>
+        </select>
+        <div>
+          <img
+            src={
+              sortingOptions.order === "desc" ? IconArrowUpActive : IconArrowUp
+            }
+            alt="sort ascending icon"
+            onClick={handleClick}
+            id="desc"
+          />
+          <img
+            src={
+              sortingOptions.order === "asc"
+                ? IconArrowDownActive
+                : IconArrowDown
+            }
+            alt="sort descending icon"
+            onClick={handleClick}
+            id="asc"
+          />
+        </div>
+      </div>
       <ul className="article">
         {articles.length > 0 &&
           articles.map((article) => {
