@@ -235,3 +235,10 @@ nav img {
 .voted {
   opacity: 0.3;
 }
+
+.sorting {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem;
+  border-bottom: 1px solid;
+}
