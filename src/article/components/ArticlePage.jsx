@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
 import { MoonLoader } from "react-spinners";
 
-import IconComment from "../../assets/icon-message.png";
-
-import { useHttpClient } from "../../hooks/http-hook";
-import { formatDateAndTime } from "../../util/convertDate";
 import Comment from "./Comment";
 import PostComment from "./PostComment";
 import Votes from "./Votes";
 
+import { useHttpClient } from "../../hooks/http-hook";
+import { formatDateAndTime } from "../../util/convertDate";
+
+import IconComment from "../../assets/icon-message.png";
+
 const ArticlePage = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest, error } = useHttpClient();
   const { article_id } = useParams();
 
   const fetchArticleById = async () => {
@@ -25,6 +27,7 @@ const ArticlePage = () => {
         setArticle(article);
       }
     } catch (error) {
+      throw error;
       console.log(error);
     }
   };
@@ -56,6 +59,10 @@ const ArticlePage = () => {
         </div>
       </section>
     );
+  }
+
+  if (error) {
+    throw error;
   }
 
   const formattedDate = formatDateAndTime(article.created_at);

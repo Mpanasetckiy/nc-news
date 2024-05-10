@@ -7,11 +7,12 @@ import { AuthContext } from "../../context/auth-context";
 
 const PostComment = ({ article_id, setComments }) => {
   const [commentBody, setCommentBody] = useState("");
-  const { isLoading, sendRequest, error } = useHttpClient();
+  const { isLoading, sendRequest, error, setError } = useHttpClient();
   const { user } = useContext(AuthContext);
 
   const postComment = async () => {
     try {
+      setError(null);
       const { newComment } = await sendRequest(
         `https://be-nc-news-0820.onrender.com/api/articles/${article_id}/comments`,
         "POST",
@@ -43,21 +44,36 @@ const PostComment = ({ article_id, setComments }) => {
   const handleClick = () => {
     if (commentBody !== "" && user.username) {
       postComment();
+    } else {
+      setError(new Error("Comment body is required"));
     }
   };
   return (
     user.username && (
-      <div className="post-comment">
-        <input
-          type="text"
-          name=""
-          id=""
-          value={commentBody}
-          placeholder="  Add a comment"
-          onChange={handleChange}
-        />
-        <img src={IconAdd} alt="icon add" onClick={handleClick} />
-      </div>
+      <>
+        <div className="post-comment">
+          <input
+            type="text"
+            name=""
+            id=""
+            value={commentBody}
+            placeholder="  Add a comment"
+            onChange={handleChange}
+          />
+          <img src={IconAdd} alt="icon add" onClick={handleClick} />
+        </div>
+        <div>
+          {error ? (
+            <p
+              style={{
+                color: "red",
+              }}
+            >
+              Error has occurred while posting, try again
+            </p>
+          ) : null}
+        </div>
+      </>
     )
   );
 };
