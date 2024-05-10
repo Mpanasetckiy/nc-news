@@ -12,7 +12,6 @@ const PostComment = ({ article_id, setComments }) => {
 
   const postComment = async () => {
     try {
-      setError(null);
       const { newComment } = await sendRequest(
         `https://be-nc-news-0820.onrender.com/api/articles/${article_id}/comments`,
         "POST",

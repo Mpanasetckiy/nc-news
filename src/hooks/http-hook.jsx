@@ -7,6 +7,7 @@ export const useHttpClient = () => {
   const sendRequest = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setIsLoading(true);
+      setError(null);
       try {
         const response = await fetch(url, {
           method,
@@ -17,9 +18,10 @@ export const useHttpClient = () => {
           body: body ? JSON.stringify(body) : null,
         });
         if (!response.ok) {
-          const err = new Error("Request failed");
-          err.status = response.status;
-          throw err;
+          const errorMessage = `HTTP Error: ${response.status} ${response.statusText}`;
+          const error = new Error(errorMessage);
+          error.status = response.status;
+          throw error;
         }
         const contentType = response.headers.get("content-type");
 
@@ -34,7 +36,6 @@ export const useHttpClient = () => {
       } catch (err) {
         setError(err);
         setIsLoading(false);
-        throw err;
       }
     },
     []
