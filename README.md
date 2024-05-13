@@ -32,7 +32,7 @@ Ensure that your system meets the following requirements to use the API:
 1. Clone the repository:
 
    ```
-   git clone https://www.github.com/username/frontend-repo.git
+   git clone https://github.com/Mpanasetckiy/nc-news
    ```
 
 2. Navigate to the project directory:
