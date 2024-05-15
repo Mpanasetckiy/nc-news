@@ -27,7 +27,9 @@ const Homepage = () => {
   const fetchArticles = async () => {
     try {
       const { articles } = await sendRequest(
-        `https://be-nc-news-0820.onrender.com/api/articles?sort_by=${sortingOptions.sort_by}&order=${sortingOptions.order}`
+        `${import.meta.env.VITE_API_URL}/articles?sort_by=${
+          sortingOptions.sort_by
+        }&order=${sortingOptions.order}`
       );
       if (!isLoading) {
         setArticles(articles);

@@ -16,7 +16,7 @@ const Comment = ({ comment, setComments }) => {
   const deleteComment = async () => {
     try {
       await sendRequest(
-        `https://be-nc-news-0820.onrender.com/api/comments/${comment_id}`,
+        `${import.meta.env.VITE_API_URL}/comments/${comment_id}`,
         "DELETE"
       );
 

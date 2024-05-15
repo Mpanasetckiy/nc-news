@@ -14,7 +14,7 @@ const Login = () => {
   const fetchUsers = async () => {
     try {
       const { users } = await sendRequest(
-        "https://be-nc-news-0820.onrender.com/api/users"
+        `${import.meta.env.VITE_API_URL}/users`
       );
 
       if (!isLoading) {

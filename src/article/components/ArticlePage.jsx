@@ -21,7 +21,7 @@ const ArticlePage = () => {
   const fetchArticleById = async () => {
     try {
       const { article } = await sendRequest(
-        `https://be-nc-news-0820.onrender.com/api/articles/${article_id}`
+        `${import.meta.env.VITE_API_URL}/articles/${article_id}`
       );
       if (!isLoading) {
         setArticle(article);
@@ -35,7 +35,7 @@ const ArticlePage = () => {
   const fetchCommentsByArticleId = async () => {
     try {
       const { comments } = await sendRequest(
-        `https://be-nc-news-0820.onrender.com/api/articles/${article_id}/comments`
+        `${import.meta.env.VITE_API_URL}/articles/${article_id}/comments`
       );
 
       if (!isLoading) {
@@ -45,7 +45,7 @@ const ArticlePage = () => {
       console.log(error);
     }
   };
-
+  console.log(article);
   useEffect(() => {
     fetchArticleById();
     fetchCommentsByArticleId();
@@ -72,7 +72,7 @@ const ArticlePage = () => {
       <ul className="article-page">
         <div className="article-page__container">
           <div className="article-page__header">
-            <img src={article.avatar_url} alt="avatar url" />
+            <img src={article.author_avatar_url} alt="avatar url" />
             <div>
               <h3>{article.name}</h3>
               <p>@{article.author}</p>

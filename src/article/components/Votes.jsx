@@ -23,7 +23,7 @@ const Votes = ({ votes, article_id }) => {
       });
 
       const { article } = await sendRequest(
-        `https://be-nc-news-0820.onrender.com/api/articles/${article_id}`,
+        `${import.meta.env.VITE_API_URL}/articles/${article_id}`,
         "PATCH",
         { inc_vote: vote }
       );

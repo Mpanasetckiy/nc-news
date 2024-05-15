@@ -13,7 +13,7 @@ const PostComment = ({ article_id, setComments }) => {
   const postComment = async () => {
     try {
       const { newComment } = await sendRequest(
-        `https://be-nc-news-0820.onrender.com/api/articles/${article_id}/comments`,
+        `${import.meta.env.VITE_API_URL}/api/articles/${article_id}/comments`,
         "POST",
         {
           username: user.username,
