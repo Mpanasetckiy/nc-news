@@ -13,13 +13,13 @@ Northcoders News is a web application built using React.js. It provides users wi
 
 ### Frontend URL
 
-[Link to Deployed Version](fe-nc-news-maksim.netlify.app)
+[Link to Deployed Version](https://nc-news-hq9p.onrender.com)
 
 ### Backend URLs
 
 [Link to Backend Repository](https://github.com/Mpanasetckiy/be-nc-news)
 
-[Link to Backend](https://be-nc-news-0820.onrender.com/api)
+[Link to Backend](https://be-nc-news-nk62cwr2zq-uc.a.run.app/api)
 
 ## Requirements
 
