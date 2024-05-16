@@ -45,7 +45,7 @@ const ArticlePage = () => {
       console.log(error);
     }
   };
-  console.log(article);
+
   useEffect(() => {
     fetchArticleById();
     fetchCommentsByArticleId();
